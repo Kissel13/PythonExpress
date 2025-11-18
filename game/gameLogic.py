@@ -1,5 +1,5 @@
 import pygame, sys
-from gameboard import GameBoard
+from gameBoard import GameBoard
 from train import Direction, Train
 from people import People
 
@@ -16,13 +16,13 @@ class GameLogic:
         # initialize variable to control how fast the game is running
         self.clock = pygame.time.Clock()
 
-        # initialize game board
-        self.board = GameBoard(self.screen)
+        self.score = 0
+        self.board = GameBoard(self.screen, self.score)
         self.running = True
 
         # initialize game score, train, and spawn first person object
         self.game_over = False
-        self.score = 0
+
         self.train = Train()
         self.person = People()
         self.person.randomize(list(self.train.cars))
@@ -66,6 +66,7 @@ class GameLogic:
 
     def update(self):
         if self.game_over:
+            self.board.game_over_display()
             return
         
         # keep the train moving once the game starts
