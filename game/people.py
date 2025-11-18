@@ -6,6 +6,7 @@ GRID_HEIGHT = 500
 
 class People:
     def __init__(self):
+        # spawn the first person at a random location on the board
         self.position = (0,0)
         self.randomize()
 
@@ -16,15 +17,14 @@ class People:
 
         # spawn people randomly around the grid
         while True:
-            x = random.randint(0, GRID_WIDTH-1)
-            y = random.randint(0, GRID_HEIGHT-1)
+            x = random.randint(0, (GRID_WIDTH // 50)-1)
+            y = random.randint(0, (GRID_HEIGHT // 50)-1)
             rand_pos = (x,y)
-
+            # if the generated position is not taken by the train set the new position
             if rand_pos not in occupied_pos:
                 self.position = rand_pos
                 break
     
-    # NEEDS IMPLEMENTATION
     def draw_person(self, surface): 
         x, y = self.position
         people_rect = pygame.Rect(x * 50,y * 50,50,50)
