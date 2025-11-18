@@ -10,7 +10,7 @@ class Direction(Enum):
 
 class Train:
     def __init__(self):
-        self.start_pos = (0, 0)
+        self.start_pos = (4, 4)
         self.start_len = 3
         self.cars = deque()
         self.car_awaiting = 0
@@ -20,17 +20,24 @@ class Train:
         # create the train on initialization
         x,y = self.start_pos
         for car in range(self.start_len):
-            self.cars.append((x-car, y))
+            self.cars.append((x, y+car))
 
-    # NEEDS IMPLEMENTATION
+    def create_new_train(self, start_pos):
+        x,y = self.start_pos
+        for car in range(self.start_len):
+            self.cars.append((x, y+car))
+
     def draw_train(self, surface):
+        # create each car with a pygame rect
         for i, (x,y) in enumerate(self.cars):
             car_rect = pygame.Rect(int(x * 50),int(y * 50),50,50)
             
+            # the head car will be a different color
             if i == 0:
                 pygame.draw.rect(surface, (220, 20, 60), car_rect)
             else:
                 pygame.draw.rect(surface, (139, 0, 0), car_rect)
+            
             pygame.draw.rect(surface, (0,0,0), car_rect, 1)
         
 
@@ -38,12 +45,14 @@ class Train:
         self.direction = self.next_dir
         # create the new head
         x,y = self.cars[0]
-        new_car = (x + self.direction.value, y + self.direction.value)
+        dx, dy = self.direction.value
+        new_car = (x + dx, y + dy)
         self.cars.appendleft(new_car)
 
         # if no cars are being added, remove the last car
         if self.car_awaiting == 0:
             self.cars.pop()
+        # otherwise keep train plus new car to extend length
         else:
             self.car_awaiting -= 1
 
