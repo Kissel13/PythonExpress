@@ -89,11 +89,14 @@ class GameLogic:
             # end the game
             self.game_over = True
             return
+        
         # when the "next level" is reached, increase boardsize but preserve train length
         if self.next_level(self.score):
             # take current length
             cur_length = len(self.train.cars)
             self.game_over = False
+
+            # increase board size 
 
             # recreate train with previous length
             self.train = Train()
@@ -104,7 +107,8 @@ class GameLogic:
             self.person = People()
             self.person.randomize(list(self.train.cars))
 
-            # increase board size 
+        self.board.score = self.score
+
 
     def draw(self):
         # draw the train and person objects

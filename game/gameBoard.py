@@ -51,5 +51,5 @@ class GameBoard:
         people.draw_person(self.screen)
         #Generate the top layers last, for example if score_display() goes first, the background will cover it up
         self.score_display()
-        self.game_over_display() #Feel free to remove, here for testing
+        # self.game_over_display() #Feel free to remove, here for testing
         pygame.display.flip()
