@@ -108,13 +108,8 @@ class GameLogic:
             self.person = People()
             self.person.randomize(list(self.train.cars))
 
-<<<<<<< HEAD
         self.board.score = self.score
 
-=======
-            # increase board size
-        self.board.score = self.score
->>>>>>> c7f55948fe4a1d20445b7c9450d260fb07583305
 
     def draw(self):
         # draw the train and person objects
