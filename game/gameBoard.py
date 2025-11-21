@@ -1,4 +1,6 @@
+import easygui
 import pygame
+from easygui import enterbox
 
 
 GRID_WIDTH = 500
@@ -10,9 +12,8 @@ class GameBoard:
         self.score = score
         self.font = pygame.font.Font(None, 36)
         #Change to 'start' to see start screen
-        self.state ='s'
+        self.state ='start'
 
-    #TODO
     def display_start_screen(self):
 
         start_screen = pygame.Surface((GRID_WIDTH, GRID_HEIGHT))
@@ -23,8 +24,12 @@ class GameBoard:
 
         self.screen.blit(welcome_text, (10, 10))
         self.screen.blit(enter_text, (10, welcome_text.get_height() + enter_text.get_height()))
-
         pygame.display.flip()
+
+        player_name= easygui.enterbox(msg="Enter Username:")
+
+        if player_name != '':
+            self.state = player_name
 
     def background_display(self):
         # fill in the game board with a checkered pattern
@@ -62,6 +67,7 @@ class GameBoard:
     def render(self, train, people):
         #
         if self.state == 'start':
+            print('Drawing start screen')
             self.display_start_screen()
         else:
             self.background_display()
