@@ -1,4 +1,6 @@
 import pygame, sys
+
+from game.oldPeople import OldPeople
 from gameBoard import GameBoard
 from train import Direction, Train
 from people import People
@@ -24,8 +26,11 @@ class GameLogic:
         self.game_over = False
 
         self.train = Train()
+        self.old_person = OldPeople()
+        self.old_person.randomize(list(self.train.cars))
         self.person = People()
         self.person.randomize(list(self.train.cars))
+
 
     def run(self):
         while self.running:
@@ -81,6 +86,11 @@ class GameLogic:
             self.score += 10
             self.person.randomize(list(self.train.cars))
 
+        if self.old_person_collision():
+            self.train.car_awaiting += 1
+            self.score += 20
+            self.old_person.randomize(list(self.train.cars))
+
         if self.train.check_collision():
             # end the game 
             self.game_over = True
@@ -90,14 +100,11 @@ class GameLogic:
             # end the game
             self.game_over = True
             return
-        
         # when the "next level" is reached, increase boardsize but preserve train length
         if self.next_level(self.score):
             # take current length
             cur_length = len(self.train.cars)
             self.game_over = False
-
-            # increase board size 
 
             # recreate train with previous length
             self.train = Train()
@@ -108,16 +115,20 @@ class GameLogic:
             self.person = People()
             self.person.randomize(list(self.train.cars))
 
+            # increase board size
         self.board.score = self.score
-
 
     def draw(self):
         # draw the train and person objects
-        self.board.render(self.train, self.person)
+        self.board.render(self.train, self.person, self.old_person)
 
     def person_collision(self):
         # check if the front of the train collides with person obejct
         return self.train.cars[0] == self.person.position
+
+    def old_person_collision(self):
+        return self.train.cars[0] == self.old_person.position
+
 
     def wall_collision(self, position):
         # check if the front of the train collides with wall
@@ -132,6 +143,7 @@ class GameLogic:
         self.game_over = False
         self.score = 0
         self.train = Train()
+        self.old_person = OldPeople()
+        self.old_person.randomize(list(self.train.cars))
         self.person = People()
         self.person.randomize(list(self.train.cars))
-
