@@ -19,8 +19,8 @@ class People:
 
         # spawn people randomly around the grid
         while True:
-            x = random.randint(0, (GRID_WIDTH // 50)-1)
-            y = random.randint(0, (GRID_HEIGHT // 50)-1)
+            x = random.randint(1, (GRID_WIDTH // 50)-1)
+            y = random.randint(1, (GRID_HEIGHT // 50)-1)
             rand_pos = (x,y)
             # if the generated position is not taken by the train set the new position
             if rand_pos not in occupied_pos:
