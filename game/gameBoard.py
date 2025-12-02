@@ -72,7 +72,7 @@ class GameBoard:
         # Text for game over screen
         game_over_text = self.font.render("GAME OVER", True, (255, 255, 255))
         score_text = self.font.render(f"Final Score: {self.score}", True, (255, 255, 255))
-        high_score_text = self.font.render(f"High Score: {self.high_score}", True, (255, 255, 255))
+        high_score_text = self.font.render(f"High Score: {self.profiles.get_high_score(player_name)}", True, (255, 255, 255))
 
         # Format the text to not overlap
         self.screen.blit(game_over_text, (10, 10))

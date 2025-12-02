@@ -48,9 +48,10 @@ class PlayerProfiles:
                 reader = csv.DictReader(csvfile)
                 high_score = 0
                 for row in reader:
-                    score = int(row['High Score'])
-                    if score > high_score:
-                        high_score = score
+                    if row['Name'] == name:
+                        score = int(row['High Score'])
+                        if score > high_score:
+                            high_score = score
                 return high_score
         except FileNotFoundError:
             return 0

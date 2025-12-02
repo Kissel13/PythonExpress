@@ -165,6 +165,8 @@ class GameLogic:
         self.board.scoresaved = False
         self.fps = 5
         self.score = 0
+        self.high_score = 0
+        self.board.high_score = 0
         self.train = Train()
         self.person = People()
         self.old_person = OldPeople()
